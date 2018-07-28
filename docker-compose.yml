@@ -1,0 +1,10 @@
+version: '2'
+services:
+
+  timezonelookup:
+    container_name: timezonelookup
+    image: timezonelookup
+    ports:
+      - "8889:8888"
+    volumes:
+      - ./timezonelookup.config:/etc/timezonelookup.config
