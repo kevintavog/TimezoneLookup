@@ -20,7 +20,7 @@ Logger.log("cache exception: \(error)")
         // Not in the cache, get it from the source
         if response == nil {
             do {
-                try Logger.log("Getting location from source: \(latitude),\(longitude))")
+                Logger.log("Getting location from source: \(latitude),\(longitude))")
                 response = try fromSource(latitude, longitude)
             } catch {
 Logger.log("fromSource exception: \(error)")

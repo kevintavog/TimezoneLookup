@@ -36,11 +36,24 @@ public class Config
 
             var loadedFile = false
             if let data = try? Data(contentsOf: filenameURL!) {
+print("loaded config file: \(String(data: data, encoding: String.Encoding.utf8))")
                 loadedFile = true
-                if let json = try? JSON(data:data) {
+                do {
+                    let json = try JSON(data:data) 
                     azureApiKey = json["azure_api_key"].stringValue
                     eUrl = json["elasticSearchUrl"].stringValue
+                } catch let error {
+                    Logger.log("Unable to load: \(error)")
                 }
+
+//                 if let json = try JSON(data:data) {
+// print("got json: \(json)")
+//                     azureApiKey = json["azure_api_key"].stringValue
+//                     eUrl = json["elasticSearchUrl"].stringValue
+//                 }
+// else {
+//     print("Can't convert data to json")
+// }
             }
 
             _azureApiKey = azureApiKey
@@ -53,6 +66,7 @@ public class Config
 
     private func save(_ filenameURL: URL) {
         do {
+            Logger.log("Config file doesn't exist, created a default at '\(filenameURL)'")
             var json = JSON()
             json["azure_api_key"].string = _azureApiKey
             json["elasticSearchUrl"].string = _elasticSearchUrl

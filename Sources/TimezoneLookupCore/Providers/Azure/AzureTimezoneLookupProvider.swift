@@ -11,6 +11,8 @@ class AzureTimezoneLookupProvider {
             url = String(format: baseAddress, $0, latitude, longitude)
         }
 
+
+print("source url: \(url)")
         guard let data = try synchronousHttpGet(url) else {
             throw LocationToTimezoneInfo.Error.NoDataInResponse
         }

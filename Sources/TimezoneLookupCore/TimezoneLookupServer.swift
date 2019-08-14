@@ -8,7 +8,7 @@ public class TimezoneLookupServer {
 
     public func start() {
         let server = HTTPServer()
-        server.serverPort = 8888
+        server.serverPort = 8889
 
         var routes = Routes()
         routes.add(method: .get, uri: "/api/v1/timezone", handler: TimezoneHandler.getTimezone)

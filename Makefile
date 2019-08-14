@@ -1,3 +1,5 @@
+BUILD_ID:=$(shell date +%s)
+
 build:
 	swift build
 
@@ -7,13 +9,10 @@ release-build:
 update:
 	swift package update
 
+tojupiter: image push
+
 image:
-	docker build -t timezonelookup .
+	docker build  . -t docker.rangic:6000/timezonelookup:${BUILD_ID}
 
 push:
-	docker save timezonelookup | bzip2 > timezonelookup-prod.bz2
-	scp timezonelookup-prod.bz2 docker-compose.yml darkman@jupiter.local:docker/timezonelookup/
-	ssh darkman@jupiter.local "cd docker/timezonelookup; bzcat timezonelookup-prod.bz2 | docker load"
-
-deploy:
-	ssh darkman@jupiter.local "cd docker/timezonelookup; docker-compose down; nohup docker-compose up &"
+	docker push docker.rangic:6000/timezonelookup:${BUILD_ID}

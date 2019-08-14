@@ -15,4 +15,6 @@ func fullLocationFilenameURL() -> URL {
 
 
 Config.filename = fullLocationFilenameURL()
+print("Loading configuration from: \(String(describing: Config.filename?.path))")
+
 TimezoneLookupServer().start()
